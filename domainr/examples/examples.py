@@ -1,5 +1,5 @@
 from domainr import Domainr
-import pprint
+from pprint import pprint
 
 def main():
     
@@ -10,10 +10,10 @@ def main():
     print d.isDomainAvailable(testDomain)
     
     print "\n----- Info -----\n"
-    pprint.pprint(d.info(testDomain))
+    pprint(d.info(testDomain))
     
     print "\n----- Search -----\n"
-    pprint.pprint(d.search(testDomain))
+    pprint(d.search(testDomain))
 
 
 if __name__ == '__main__':
