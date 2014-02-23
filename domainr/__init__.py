@@ -63,20 +63,20 @@ class Domainr(object):
             constants.DOMAINR_BASE_URL + args[0],   #e.g. http://domai.nr/api/json/ + info
             params=requestParams)
 
-        logging.debug("[Domainr.query] Request URL : %s" % request.url)
-        logging.debug("[Domainr.query] Response Status Code : %s" % request.status_code)
-        logging.debug("[Domainr.query] Response Content : %s" % request.content)
+        logging.debug("[Domainr._query] Request URL : %s" % request.url)
+        logging.debug("[Domainr._query] Response Status Code : %s" % request.status_code)
+        logging.debug("[Domainr._query] Response Content : %s" % request.content)
 
         content = json.loads(request.content)
 
         try:
             errorCode = content['error']['status']
             errorMessage = content['error']['message']
-            logging.debug("[Domainr.query] Error found in query response")
+            logging.debug("[Domainr._query] Error found in query response")
             raise exceptions.ResponseError(errorMessage, error_code=errorCode)
             
         except (KeyError, AttributeError) as e:
-            logging.debug("[Domainr.query] No error found in query response")
+            logging.debug("[Domainr._query] No error found in query response")
         
         return content
         
@@ -116,7 +116,7 @@ class Domainr(object):
 
         if(param == 'q'):
             isDomainValid = self._isValidDomain(value)
-            logging.debug("[Domainr.validate] Is domain valid? (%s)" % isDomainValid)
+            logging.debug("[Domainr._validate] Is domain valid? (%s)" % isDomainValid)
             if not isDomainValid:
                 raise exceptions.DomainError('In order to query against Domainr you will need to provide valid domain.')
             else:
@@ -127,7 +127,7 @@ class Domainr(object):
             return True
             
         else:
-            # TODO - Raise error
+            # TODO - Raise ValidationError
             pass
 
     
@@ -137,11 +137,8 @@ class Domainr(object):
 
 
     def _isValidDomain(self, domain):
-
-        logging.debug("[Domainr.is_valid_domain] Looking if %s is valid or not ..." % domain)
-        # TODO - Make the G/TLD portion of the regex smarter
+        logging.debug("[Domainr._isValidDomain] Validating domain %s ..." % domain)
         domain_regex = re.compile(r'^(?=.{4,255}$)([a-zA-Z0-9][a-zA-Z0-9-]{,61}[a-zA-Z0-9]\.)+[a-zA-Z0-9]{2,}$')
-                                    
         match = re.match(domain_regex, domain)
         if match: return True
         return False
