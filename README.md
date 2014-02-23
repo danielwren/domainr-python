@@ -47,6 +47,7 @@ if __name__ == '__main__':
 
 Notes / Links
 -------------
+- Domainr has comprehensive support for many esoteric domain names, including the [new gTLDs](https://domai.nr/about/tlds)
 - Starting 09/2014, an API key will be required to use the [Domainr API](https://domai.nr/api)
 - [Request an API key](https://docs.google.com/forms/d/191jRookiODgYynxmX8rXuWTb4yE2gkw3N06wHF44tYs/viewform)
 - [Reference for JSON API](https://domai.nr/api/docs/json)
